@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Task from "./task";
 
 export default function Home() {
   return (
@@ -12,27 +13,11 @@ export default function Home() {
         </button>
       </form>
       <ul>
-        <li>
-          <input type="checkbox" />
-          <p>Tarefa 1</p>
-          <button className="delete">
-            <img src="https://super.so/icon/light/trash-2.svg" alt="Apagar"/>
-          </button>
-        </li>
-        <li>
-          <input type="checkbox" />
-          <p>Tarefa 1</p>
-          <button className="delete">
-            <img src="https://super.so/icon/light/trash-2.svg" alt="Apagar"/>
-          </button>
-        </li>
-        <li>
-          <input type="checkbox" />
-          <p>Tarefa 1</p>
-          <button className="delete">
-            <img src="https://super.so/icon/light/trash-2.svg" alt="Apagar"/>
-          </button>
-        </li>
+        <Task name="Tarefa 1" />
+        <Task name="Tarefa 2" />
+        <Task name="Tarefa 3" />
+        <Task name="Tarefa 1" />
+        <Task name="Tarefa 1" />
       </ul>
     </main>
   );
