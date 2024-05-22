@@ -81,7 +81,7 @@ export default function Home() {
         {tasks.length == 0 ? (
           <p>Nenhum item...</p>
         ) : tasks.map(task => (
-          <Task key={task.id} name={task.name} done={task.done} />
+          <Task key={task.id} id={task.id} name={task.name} done={task.done} readTasks={readTasks} />
         ))}
       </ul>
     </main>
