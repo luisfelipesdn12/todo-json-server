@@ -1,19 +1,9 @@
 {
   "tasks": [
     {
-      "id": "1",
-      "name": "Tarefa 1",
-      "done": true
-    },
-    {
-      "id": "1",
-      "name": "Tarefa 2",
-      "done": false
-    },
-    {
-      "id": "9484",
       "name": "Entrar no discord",
-      "done": false
+      "done": false,
+      "id": "9484"
     }
   ]
 }
