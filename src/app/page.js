@@ -1,24 +1,30 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Task from "./task";
 
+export async function getTasks() {
+  try {
+    const response = await fetch("http://localhost:4002/tasks");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("ERROR: loading tasks");
+  }
+}
+
 export default function Home() {
-  const tasks = [
-    {
-      "id": "1",
-      "name": "Tarefa 1",
-      "done": false
-    },
-    {
-      "id": "1",
-      "name": "Tarefa 2",
-      "done": true
-    },
-    {
-      "id": "1",
-      "name": "Tarefa 6",
-      "done": false
-    },
-  ];
+  const [tasks, setTasks] = useState([]);
+
+  const readTasks = async () => {
+    const data = await getTasks();
+    setTasks(data);
+  }
+
+  useEffect(() => {
+    readTasks();
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -30,7 +36,9 @@ export default function Home() {
         </button>
       </form>
       <ul>
-        {tasks.map(task => (
+        {tasks.length == 0 ? (
+          <p>Nenhum item...</p>
+        ) : tasks.map(task => (
           <Task key={task.id} name={task.name} done={task.done} />
         ))}
       </ul>
