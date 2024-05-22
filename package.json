@@ -1,5 +1,5 @@
 {
-  "name": "todo-json-server",
+  "name": "todo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "api": "npx json-server database/db.json --port 4002",
-    "app": "npm-run-all --parallel dev api"
+    "servidor": "npx json-server banco.json --port 1234",
+    "tudo": "npm-run-all --parallel dev servidor"
   },
   "dependencies": {
     "json-server": "^1.0.0-beta.0",

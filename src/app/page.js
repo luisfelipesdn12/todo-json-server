@@ -2,86 +2,52 @@
 
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import Task from "./task";
+import Tarefa from "./tarefa";
 
-export async function getTasks() {
-  try {
-    const response = await fetch("http://localhost:4002/tasks");
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("ERROR: loading tasks");
-  }
-}
-
-export async function createTask(task) {
-  try {
-      // 1 - Criandro body em string
-      const body = JSON.stringify(task);
-
-      // 2 - Preparando cabecalho POST
-      const options = {
-          method: 'POST',
-          headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json"
-          },
-          body: body,
-      }
-
-      // 3 - Fetch
-      let response = await fetch("http://localhost:4002/tasks", options);
-
-      // 4 - Convertendo para JSON
-      let data = await response.json();
-      return data;
-  } catch (error) {
-      console.error("ERROR: creating task");
-  }
-}
+const url = "http://localhost:1234/tarefas";
 
 export default function Home() {
-  // nome atual, task sendo criada, valorDoInput
-  const [currentName, setCurrentName] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [tarefas, setTarefas] = useState([]);
+  const [input, setInput] = useState("");
 
-  const readTasks = async () => {
-    const data = await getTasks();
-    setTasks(data);
+  const carregar = async () => {
+    const response = await fetch(url);
+    const data = await response.json();
+    setTarefas(data);
   }
 
-  const addTask = async (task) => {
-    const data = await createTask(task);
-    setTasks(prev => [...prev, data]);
-  }
-
-  useEffect(() => {
-    readTasks();
-  }, []);
+  useEffect(() => {carregar()}, []);
 
   return (
     <main className={styles.main}>
-      <h1>Lista de tarefas</h1>
+      <h1>Todo list</h1>
       <form>
-        <input
-          value={currentName}
-          type="text" placeholder="Digite a tarefa..."
-          onChange={e => setCurrentName(e.target.value)} />
-        <button onClick={(e) => {
+        <input className={styles.input} value={input} onChange={e => setInput(e.target.value)} />
+        <button
+          className={styles.button}
+          onClick={async (e) => {
           e.preventDefault();
-          if (currentName !== "") {
-            addTask({ name: currentName, done: false });
-            setCurrentName("");
-          }
+          await fetch(url, {
+            method: 'POST',
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ texto: input, feito: false }),
+          });
+          setInput("");
+          await carregar();
         }}>
-          <img src="https://super.so/icon/light/plus.svg" alt="+" />
+          <img src="https://super.so/icon/light/plus.svg" />
         </button>
       </form>
       <ul>
-        {tasks.length == 0 ? (
-          <p>Nenhum item...</p>
-        ) : tasks.map(task => (
-          <Task key={task.id} id={task.id} name={task.name} done={task.done} readTasks={readTasks} />
+        {tarefas.map(tarefa => (
+          <Tarefa id={tarefa.id}
+            texto={tarefa.texto}
+            feito={tarefa.feito}
+            atualizar={carregar}
+          />
         ))}
       </ul>
     </main>

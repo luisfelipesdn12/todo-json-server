@@ -11,43 +11,5 @@ body {
 }
 
 body {
-  color: #212121;
-  background: #FFFFFF;
-}
-
-input {
-  padding: 0.2rem;
-  width: 20rem;
-  font-size: 1.1rem;
-  border: none;
-  border-bottom: 1px solid #000000;
-}
-
-button {
-  background: rgb(31, 31, 202);
-  border: none;
-  padding: 0.5rem;
-  margin-left: 1rem;
-  border-radius: 0.2rem;
-}
-
-button.delete {
-  background: rgb(202, 31, 31);
-}
-
-li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-li > input {
-  width: auto;
-  margin-right: 0.7rem;
-}
-
-li > p {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-right: 14rem;
+  background: #ffffff;
 }
